@@ -22,7 +22,7 @@ a { color: inherit; }
 .controls input { flex: 1; min-width: 220px; }
 .controls select { min-width: 150px; cursor: pointer; }
 .count { color: #888; font-size: 0.85em; margin-left: auto; letter-spacing: 0.5px; }
-.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 24px; padding: 32px 40px; max-width: 1600px; margin: 0 auto; }
+.grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; padding: 32px 40px; max-width: 1600px; margin: 0 auto; }
 .card { background: #fff; border-radius: 8px; overflow: hidden; border: 1px solid #ececec; transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease; cursor: pointer; }
 .card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.10); border-color: #f4c430; }
 .card-inner { display: flex; padding: 18px; gap: 18px; }
@@ -90,10 +90,9 @@ a { color: inherit; }
 .form-submit:hover { background: #f4c430; color: #0a0a0a; }
 .form-note { font-size: 0.72em; color: #888; text-align: center; margin-top: 14px; line-height: 1.5; }
 
-
-@media (max-width: 1100px) {
-    .grid { padding: 24px 20px; }
-    .card-thumb { width: 150px; height: 180px; }
+@media (max-width: 1350px) {
+    .grid { grid-template-columns: repeat(2, 1fr); }
+    .card-thumb { width: 155px; height: 185px; }
 }
 @media (max-width: 768px) {
     .header { padding: 28px 20px; }
