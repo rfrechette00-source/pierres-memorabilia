@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pierre's Memorabilia Collection</title>
+<title>Sports &amp; Entertainment Collection Sale</title>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html, body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; background: #fafafa; color: #1a1a1a; min-height: 100vh; -webkit-font-smoothing: antialiased; }
@@ -42,13 +42,13 @@ a { color: inherit; }
 .price-tiers { margin-top: auto; padding-top: 10px; border-top: 1px solid #f0f0f0; }
 .asking-price-label { color: #999; font-size: 0.66em; text-transform: uppercase; letter-spacing: 1.3px; margin-bottom: 4px; font-weight: 600; }
 .asking-price { font-size: 1.3em; font-weight: 700; color: #0a0a0a; padding-bottom: 8px; }
-.coa-link { display: inline-block; margin-top: 10px; color: #8a6d00; font-size: 0.75em; font-weight: 600; letter-spacing: 0.8px; text-transform: uppercase; text-decoration: none; padding: 6px 0; border-bottom: 1px solid transparent; transition: border-color 0.15s ease; cursor: pointer; }
+.coa-link { display: inline-block; margin-top: 10px; color: #8a6d00; font-size: 0.75em; white-space: nowrap; font-weight: 600; letter-spacing: 0.8px; text-transform: uppercase; text-decoration: none; padding: 6px 0; border-bottom: 1px solid transparent; transition: border-color 0.15s ease; cursor: pointer; }
 .coa-link:hover { border-bottom-color: #f4c430; }
 .coa-link::before { content: "\1F4DC"; margin-right: 6px; font-size: 1.1em; vertical-align: -1px; }
-.licensed-link { display: inline-block; margin-top: 10px; color: #5a2d82; font-size: 0.75em; font-weight: 600; letter-spacing: 0.8px; text-transform: uppercase; text-decoration: none; padding: 6px 0; border-bottom: 1px solid transparent; transition: border-color 0.15s ease; cursor: pointer; }
+.licensed-link { display: inline-block; margin-top: 10px; color: #5a2d82; font-size: 0.75em; white-space: nowrap; font-weight: 600; letter-spacing: 0.8px; text-transform: uppercase; text-decoration: none; padding: 6px 0; border-bottom: 1px solid transparent; transition: border-color 0.15s ease; cursor: pointer; }
 .licensed-link:hover { border-bottom-color: #9b59b6; }
 .licensed-link::before { content: "\269C\FE0F"; margin-right: 6px; font-size: 1.1em; vertical-align: -1px; }
-.correspondence-link { display: inline-block; margin-top: 10px; color: #0a4a8a; font-size: 0.75em; font-weight: 600; letter-spacing: 0.8px; text-transform: uppercase; text-decoration: none; padding: 6px 0; border-bottom: 1px solid transparent; transition: border-color 0.15s ease; cursor: pointer; }
+.correspondence-link { display: inline-block; margin-top: 10px; color: #0a4a8a; font-size: 0.75em; white-space: nowrap; font-weight: 600; letter-spacing: 0.8px; text-transform: uppercase; text-decoration: none; padding: 6px 0; border-bottom: 1px solid transparent; transition: border-color 0.15s ease; cursor: pointer; }
 .correspondence-link:hover { border-bottom-color: #4a90d9; }
 .correspondence-link::before { content: "\2709\FE0F"; margin-right: 6px; font-size: 1.1em; vertical-align: -1px; }
 .no-coa-note { display: inline-block; margin-top: 10px; color: #999; font-size: 0.72em; font-style: italic; letter-spacing: 0.3px; }
@@ -111,14 +111,15 @@ a { color: inherit; }
     .grid { padding: 16px; grid-template-columns: 1fr; gap: 16px; }
     .card-inner { padding: 14px; gap: 14px; }
     .card-thumb { width: 130px; height: 160px; }
+    .coa-link, .licensed-link, .correspondence-link { font-size: 0.65em; }
     .modal-content { padding: 24px 20px; }
 }
 </style>
 </head>
 <body>
 <div class="header">
-    <h1>PIERRE<span>'</span>S MEMORABILIA</h1>
-    <div class="subtitle">Sports &amp; Entertainment Collection</div>
+    <h1>SPORTS <span>&amp;</span> ENTERTAINMENT</h1>
+    <div class="subtitle">Collection Sale</div>
     <div class="contact-bar">
         <a class="contact-item" href="mailto:sports-auction-hub@gmail.com">
             <svg viewBox="0 0 24 24"><path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4.5-8 5-8-5V6l8 5 8-5v2.5z"/></svg>
@@ -1120,7 +1121,7 @@ a { color: inherit; }
 </div>
 </div>
 <div class="footer">
-    <strong>Pierre's Memorabilia Collection</strong> &mdash; Click any item for full details &middot; Click certificate badges to view documentation
+    <strong>Sports &amp; Entertainment Collection Sale</strong> &mdash; Click any item for full details &middot; Click certificate badges to view documentation
 </div>
 <div id="card-detail" class="modal">
     <div class="modal-content detail-content">
@@ -1150,14 +1151,14 @@ a { color: inherit; }
             </div>
             <div class="form-group">
                 <label for="form-contact">Email or Phone</label>
-                <input type="text" id="form-contact" required placeholder="How can Pierre reach you?">
+                <input type="text" id="form-contact" required placeholder="How can we reach you?">
             </div>
             <div class="form-group">
                 <label for="form-question">Your Question or Offer</label>
                 <textarea id="form-question" required placeholder="I'm interested in this piece..."></textarea>
             </div>
             <button type="submit" class="form-submit">Send Inquiry</button>
-            <div class="form-note">Submitting will open your email app with a pre-filled message to Pierre.<br>You may also be offered to send a text message notification.</div>
+            <div class="form-note">Submitting will open your email app with a pre-filled inquiry.<br>You may also be offered to send a text message notification.</div>
         </form>
     </div>
 </div>
@@ -1393,7 +1394,7 @@ formEl.addEventListener('submit', (e) => {
 
     const subject = 'Memorabilia Inquiry: ' + currentItem;
     const body =
-        'New inquiry from Pierre\'s Memorabilia Collection\n' +
+        'New inquiry from Sports & Entertainment Collection Sale\n' +
         '-------------------------------------------\n\n' +
         'Item: ' + currentItem + '\n\n' +
         'From: ' + name + '\n' +
@@ -1426,7 +1427,7 @@ function openPayModal(itemTitle, price) {
     payModalItem.textContent = itemTitle;
     payModalPrice.textContent = price;
     const amount = price.replace(/[^0-9.]/g, '');
-    paypalLink.href = 'https://www.paypal.me/PierreFrechette/' + amount;
+    paypalLink.href = 'https://www.paypal.me/gum1960/' + amount;
     payModal.classList.add('active');
     document.body.style.overflow = 'hidden';
 }
