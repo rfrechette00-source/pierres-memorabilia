@@ -1177,9 +1177,8 @@ a { color: inherit; }
             <div class="pay-divider">or</div>
             <div class="pay-option">
                 <h4>Zelle</h4>
-                <p>Send payment via Zelle through your banking app to:</p>
-                <p><strong style="font-size:1.1em;color:#0a0a0a;">sports-auction-hub@gmail.com</strong></p>
-                <button class="pay-action zelle-btn" onclick="copyZelle()">Copy Zelle Email</button>
+                <p>Send payment via Zelle through your banking app.</p>
+                <button class="pay-action zelle-btn" onclick="copyZelle()">Copy Zelle Payment Info</button>
                 <div id="zelle-copied" style="color:#6d1ed4;font-size:0.78em;margin-top:8px;display:none;">Copied to clipboard!</div>
             </div>
         </div>
@@ -1438,7 +1437,7 @@ function closePayModal() {
 }
 
 function copyZelle() {
-    navigator.clipboard.writeText('sports-auction-hub@gmail.com').then(function() {
+    navigator.clipboard.writeText('6788953329').then(function() {
         document.getElementById('zelle-copied').style.display = 'block';
         setTimeout(function() { document.getElementById('zelle-copied').style.display = 'none'; }, 3000);
     });
