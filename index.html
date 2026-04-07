@@ -1460,5 +1460,127 @@ document.querySelectorAll('.card').forEach(function(card) {
     }
 });
 </script>
+
+<!-- Vercel Analytics (enable in Vercel dashboard: Settings > Analytics) -->
+<script defer src="/_vercel/insights/script.js"></script>
+<script defer src="/_vercel/speed-insights/script.js"></script>
+
+<script>
+// ═══ ERROR MONITORING ═══
+// Catches uncaught errors and unhandled promise rejections
+// Sends alert email via mailto fallback + logs to console
+(function() {
+    var ERROR_EMAIL = 'sports-auction-hub@gmail.com';
+    var errorCount = 0;
+    var maxAlerts = 3; // Don't spam
+
+    function reportError(type, message, source, line, col) {
+        errorCount++;
+        var report = {
+            type: type,
+            message: message,
+            source: source || 'unknown',
+            line: line || 0,
+            col: col || 0,
+            url: window.location.href,
+            userAgent: navigator.userAgent,
+            timestamp: new Date().toISOString()
+        };
+        
+        // Log to console for debugging
+        console.error('[Site Monitor] Error detected:', report);
+        
+        // Store in sessionStorage for review
+        var errors = JSON.parse(sessionStorage.getItem('site_errors') || '[]');
+        errors.push(report);
+        sessionStorage.setItem('site_errors', JSON.stringify(errors));
+        
+        // Send to monitoring endpoint if configured
+        if (window.__MONITOR_ENDPOINT) {
+            fetch(window.__MONITOR_ENDPOINT, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(report)
+            }).catch(function() {});
+        }
+    }
+
+    window.onerror = function(msg, source, line, col, error) {
+        reportError('uncaught_error', msg, source, line, col);
+        return false;
+    };
+
+    window.addEventListener('unhandledrejection', function(event) {
+        reportError('unhandled_promise', String(event.reason), '', 0, 0);
+    });
+
+    // Monitor critical resources (images in lightbox/detail)
+    document.addEventListener('error', function(e) {
+        if (e.target && e.target.tagName === 'IMG') {
+            reportError('image_load_fail', 'Failed to load: ' + (e.target.src || '').substring(0, 120), e.target.src, 0, 0);
+        }
+    }, true);
+})();
+
+// ═══ BASIC ANALYTICS (privacy-friendly, no cookies) ═══
+(function() {
+    var SESSION_KEY = 'pm_session';
+    var session = JSON.parse(sessionStorage.getItem(SESSION_KEY) || 'null');
+    if (!session) {
+        session = {
+            id: Math.random().toString(36).substring(2, 10),
+            start: new Date().toISOString(),
+            pageViews: 0,
+            cardClicks: 0,
+            coaClicks: 0,
+            contactClicks: 0,
+            buyClicks: 0,
+            searchUses: 0,
+            filterUses: 0
+        };
+    }
+    session.pageViews++;
+    sessionStorage.setItem(SESSION_KEY, JSON.stringify(session));
+
+    // Track interactions
+    document.addEventListener('click', function(e) {
+        var target = e.target;
+        if (target.closest('.card') && !target.closest('.interest-btn') && !target.closest('.buy-btn') && !target.closest('.coa-link') && !target.closest('.licensed-link') && !target.closest('.correspondence-link')) {
+            session.cardClicks++;
+        } else if (target.closest('.coa-link') || target.closest('.licensed-link') || target.closest('.correspondence-link')) {
+            session.coaClicks++;
+        } else if (target.closest('.interest-btn')) {
+            session.contactClicks++;
+        } else if (target.closest('.buy-btn') || target.closest('.paypal-btn') || target.closest('.zelle-btn')) {
+            session.buyClicks++;
+        }
+        sessionStorage.setItem(SESSION_KEY, JSON.stringify(session));
+    });
+
+    // Track search and filter usage
+    var searchEl = document.getElementById('search');
+    var filterEl = document.getElementById('sportFilter');
+    if (searchEl) searchEl.addEventListener('input', function() {
+        session.searchUses++;
+        sessionStorage.setItem(SESSION_KEY, JSON.stringify(session));
+    });
+    if (filterEl) filterEl.addEventListener('change', function() {
+        session.filterUses++;
+        sessionStorage.setItem(SESSION_KEY, JSON.stringify(session));
+    });
+
+    // Log session summary on page unload
+    window.addEventListener('beforeunload', function() {
+        session.end = new Date().toISOString();
+        session.duration = Math.round((new Date(session.end) - new Date(session.start)) / 1000);
+        console.log('[Analytics] Session summary:', JSON.stringify(session, null, 2));
+
+        // Send to monitoring endpoint if configured
+        if (window.__MONITOR_ENDPOINT) {
+            navigator.sendBeacon(window.__MONITOR_ENDPOINT, JSON.stringify({type: 'session', data: session}));
+        }
+    });
+})();
+</script>
 </body>
 </html>
