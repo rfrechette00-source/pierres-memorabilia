@@ -186,7 +186,7 @@ a { color: inherit; }
             <div class="price-tiers">
                 <div class="asking-price-label">Asking Price</div>
                 <div class="asking-price">$400</div>
-                <a class="correspondence-link" data-correspondence="Pierre%27s%20Memorabilia/Images%2C%20COAs%2C%20and%20Verified%20Correspondence/Wayne%20Gretzky%20%28%2399%29%20-%2016x20%2C%20Color%2C%20Framed/IMG_3116-COA.jpeg">Verified Correspondence</a>
+                <a class="coa-link" data-coa="Pierre%27s%20Memorabilia/Images%2C%20COAs%2C%20and%20Verified%20Correspondence/Wayne%20Gretzky%20%28%2399%29%20-%2016x20%2C%20Color%2C%20Framed/IMG_3116-COA.jpeg">Certificate of Authenticity</a>
                 <button class="interest-btn" type="button">Interested? Contact Me</button>
                 <button class="buy-btn" type="button">Buy Now</button>
                 <div class="shipping-note">Shipping and handling responsibility of purchaser.</div>
@@ -237,13 +237,13 @@ a { color: inherit; }
         </div>
     </div>
 </div>
-<div class="card" data-athlete="bobby orr (#4)" data-sport="hockey - boston bruins" data-desc="Signed 16x20 color action photo of Bobby Orr (#4), Boston Bruins. Not Framed." data-high="2000" data-name="bobby orr (#4)" data-title="Bobby Orr (#4)" data-img="4">
+<div class="card" data-athlete="bobby orr (#4)" data-sport="hockey - boston bruins" data-desc="Signed 16x20 color action photo of Bobby Orr (#4), Boston Bruins. Framed." data-high="2000" data-name="bobby orr (#4)" data-title="Bobby Orr (#4)" data-img="4">
     <div class="card-inner">
         <div class="card-thumb"><img src="Pierre%27s%20Memorabilia/Images%2C%20COAs%2C%20and%20Verified%20Correspondence/Bobby%20Orr%20%28%234%29%20-%2016x20%2C%20Color%2C%20Framed/6F5C79E3-9454-44CA-9366-18AB86F1347B.JPG" alt="Bobby Orr (#4)" loading="lazy" data-highres="Pierre%27s%20Memorabilia/Images%2C%20COAs%2C%20and%20Verified%20Correspondence/Bobby%20Orr%20%28%234%29%20-%2016x20%2C%20Color%2C%20Framed/6F5C79E3-9454-44CA-9366-18AB86F1347B.JPG"></div>
         <div class="card-info">
             <h3>Bobby Orr (#4)</h3>
             <div class="sport">Hockey — Boston Bruins</div>
-            <div class="desc">Signed 16x20 color action photo of Bobby Orr (#4), Boston Bruins. Not Framed.</div>
+            <div class="desc">Signed 16x20 color action photo of Bobby Orr (#4), Boston Bruins. Framed.</div>
             <div class="details">
                 <span class="tag signed">Signed: Yes</span>
                 <span class="tag">16x20</span>
@@ -1151,7 +1151,7 @@ a { color: inherit; }
             </div>
             <div class="form-group">
                 <label for="form-contact">Email or Phone</label>
-                <input type="text" id="form-contact" required placeholder="How can we reach you?">
+                <input type="text" id="form-contact" required placeholder="How can we reach you?" inputmode="email" autocomplete="email">
             </div>
             <div class="form-group">
                 <label for="form-question">Your Question or Offer</label>
@@ -1208,9 +1208,12 @@ function sortCards() {
     const sortBy = document.getElementById('sortBy').value;
     const grid = document.getElementById('grid');
     const cards = Array.from(grid.querySelectorAll('.card'));
-    cards.sort((a,b) => {
-        if (sortBy === 'high-desc') return parseInt(b.dataset.high) - parseInt(a.dataset.high);
-        if (sortBy === 'high-asc') return parseInt(a.dataset.high) - parseInt(b.dataset.high);
+    cards.sort((a, b) => {
+        if (sortBy === 'high-desc' || sortBy === 'high-asc') {
+            const pa = parseInt((a.querySelector('.asking-price').textContent || '0').replace(/[^0-9]/g, ''));
+            const pb = parseInt((b.querySelector('.asking-price').textContent || '0').replace(/[^0-9]/g, ''));
+            return sortBy === 'high-desc' ? pb - pa : pa - pb;
+        }
         if (sortBy === 'name-asc') return a.dataset.name.localeCompare(b.dataset.name);
         if (sortBy === 'name-desc') return b.dataset.name.localeCompare(a.dataset.name);
         return 0;
@@ -1444,6 +1447,19 @@ function copyZelle() {
 }
 
 payModal.addEventListener('click', function(e) { if (e.target === payModal) closePayModal(); });
+
+// Initialize item count from DOM
+document.getElementById('count').textContent = document.querySelectorAll('.card').length + ' items';
+
+// Ensure all cards have shipping note
+document.querySelectorAll('.card .price-tiers').forEach(function(pt) {
+    if (!pt.querySelector('.shipping-note')) {
+        var note = document.createElement('div');
+        note.className = 'shipping-note';
+        note.textContent = 'Shipping and handling responsibility of purchaser.';
+        pt.appendChild(note);
+    }
+});
 
 // Wire Buy Now buttons on cards
 document.querySelectorAll('.card').forEach(function(card) {
