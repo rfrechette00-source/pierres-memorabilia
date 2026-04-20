@@ -1231,7 +1231,7 @@ function openLightbox(src, caption) {
 function closeLightbox() {
     lb.classList.remove('active');
     document.body.style.overflow = '';
-    lbImg.src = '';
+    lbImg.removeAttribute('src');
 }
 
 // Contact modal
@@ -1314,7 +1314,7 @@ function openCardDetail(card) {
 function closeCardDetail() {
     cardDetail.classList.remove('active');
     document.body.style.overflow = '';
-    detailImg.src = '';
+    detailImg.removeAttribute('src');
 }
 
 // Wiring
