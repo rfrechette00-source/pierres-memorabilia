@@ -55,7 +55,7 @@ a { color: inherit; }
 .detail-content { max-width: 560px !important; width: 100%; }
 .detail-layout { display: flex; flex-direction: column; gap: 0; }
 .detail-img-wrap { width: 100%; background: #f5f5f5; border-radius: 6px; overflow: hidden; margin-bottom: 20px; text-align: center; }
-.detail-img-wrap img { max-height: 340px; width: auto; max-width: 100%; height: auto; display: inline-block; object-fit: contain; }
+.detail-img-wrap img { max-height: 340px; width: auto; max-width: 100%; height: auto; display: inline-block; object-fit: contain; cursor: zoom-in; }
 .detail-info { width: 100%; }
 .detail-info h3 { font-size: 1.3em; font-weight: 700; color: #0a0a0a; margin: 0 0 4px; letter-spacing: 0.3px; }
 .detail-info .desc { display: block; -webkit-line-clamp: unset; overflow: visible; max-height: none; font-size: 0.88em; }
@@ -554,7 +554,6 @@ a { color: inherit; }
             <div class="price-tiers">
                 <div class="asking-price-label">Asking Price</div>
                 <div class="asking-price">$250</div>
-                <a class="coa-link" data-coa="Pierre%27s%20Memorabilia/Images%2C%20COAs%2C%20and%20Verified%20Correspondence/Alexander%20Ovechkin%20%28%238%29%20-%2016x20%2C%20Framed/IMG_3134-COA.jpeg">Certificate of Authenticity</a>
                 <a class="licensed-link" data-licensed="Pierre%27s%20Memorabilia/Images%2C%20COAs%2C%20and%20Verified%20Correspondence/Alexander%20Ovechkin%20%28%238%29%20-%2016x20%2C%20Framed/IMG_3134-COA.jpeg">NHLPA Official Licensed Product</a>
                 <button class="interest-btn" type="button">Interested? Contact Me</button>
                 <button class="buy-btn" type="button">Buy Now</button>
@@ -620,7 +619,7 @@ a { color: inherit; }
             <div class="price-tiers">
                 <div class="asking-price-label">Asking Price</div>
                 <div class="asking-price">$300</div>
-                <a class="coa-link" data-coa="Pierre%27s%20Memorabilia/Images%2C%20COAs%2C%20and%20Verified%20Correspondence/Barry%20Sanders%20%28%2320%29%20-%2016x20%2C%20Color%2C%20Framed/IMG_3137-COA.jpeg">Certificate of Authenticity</a>
+                <a class="coa-link" data-coa="Pierre%27s%20Memorabilia/Images%2C%20COAs%2C%20and%20Verified%20Correspondence/Barry%20Sanders%20%28%2320%29%20-%2016x20%2C%20Color%2C%20Framed/IMG_3137-COA.jpeg">PSA/DNA Certification</a>
                 <button class="interest-btn" type="button">Interested? Contact Me</button>
                 <button class="buy-btn" type="button">Buy Now</button>
                 <div class="shipping-note">Shipping and handling responsibility of purchaser.</div>
@@ -642,8 +641,7 @@ a { color: inherit; }
             <div class="price-tiers">
                 <div class="asking-price-label">Asking Price</div>
                 <div class="asking-price">$200</div>
-                <a class="coa-link" data-coa="Pierre%27s%20Memorabilia/Images%2C%20COAs%2C%20and%20Verified%20Correspondence/Bobby%20Hull%20%28%237%29%20-%2016x20%2C%20BW%2C%20Not%20Framed/IMG_3130-COA.jpeg">Certificate of Authenticity</a>
-                <span class="no-coa-note">No COA or correspondence on file</span>
+                <a class="coa-link" data-coa="Pierre%27s%20Memorabilia/Images%2C%20COAs%2C%20and%20Verified%20Correspondence/Bobby%20Hull%20%28%237%29%20-%2016x20%2C%20BW%2C%20Not%20Framed/IMG_3130-COA.jpeg">PSA/DNA Certification</a>
                 <button class="interest-btn" type="button">Interested? Contact Me</button>
                 <button class="buy-btn" type="button">Buy Now</button>
             </div>
@@ -664,7 +662,7 @@ a { color: inherit; }
             <div class="price-tiers">
                 <div class="asking-price-label">Asking Price</div>
                 <div class="asking-price">$150</div>
-                <a class="coa-link" data-coa="Pierre%27s%20Memorabilia/Images%2C%20COAs%2C%20and%20Verified%20Correspondence/Marcel%20Dionne%20%28%2316%29%20-%2016x20%2C%20Color%2C%20Not%20Framed/IMG_3138-COA.jpeg">Certificate of Authenticity</a>
+                <a class="coa-link" data-coa="Pierre%27s%20Memorabilia/Images%2C%20COAs%2C%20and%20Verified%20Correspondence/Marcel%20Dionne%20%28%2316%29%20-%2016x20%2C%20Color%2C%20Not%20Framed/IMG_3138-COA.jpeg">PSA/DNA Certification</a>
                 <button class="interest-btn" type="button">Interested? Contact Me</button>
                 <button class="buy-btn" type="button">Buy Now</button>
             </div>
@@ -1306,6 +1304,10 @@ function openCardDetail(card) {
             openPayModal(detailCurrentTitle, price);
         });
     });
+
+    detailImg.onclick = function() {
+        if (detailImg.src) openLightbox(detailImg.src, detailCurrentTitle);
+    };
 
     cardDetail.classList.add('active');
     document.body.style.overflow = 'hidden';
