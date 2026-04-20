@@ -4,3 +4,6 @@
 *.key
 .DS_Store
 reference/
+node_modules/
+playwright-report/
+test-results/
