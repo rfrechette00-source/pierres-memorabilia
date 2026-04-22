@@ -1187,7 +1187,7 @@ a { color: inherit; }
                 <textarea id="form-question" required placeholder="I'm interested in this piece..."></textarea>
             </div>
             <button type="submit" class="form-submit">Send Inquiry</button>
-            <div class="form-note">Submitting will open your email app with a pre-filled inquiry.<br>You may also be offered to send a text message notification.</div>
+            <div class="form-note">Submitting will open your email app with a pre-filled inquiry.</div>
         </form>
     </div>
 </div>
@@ -1216,7 +1216,6 @@ a { color: inherit; }
 </div>
 <script>
 const EMAIL_TO = "sports-auction-hub@gmail.com";
-const SMS_TO = "678-895-3329";
 
 function filterCards() {
     const q = document.getElementById('search').value.toLowerCase();
@@ -1428,7 +1427,7 @@ document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') { closeLightbox(); closeModal(); closeCardDetail(); closePayModal(); }
 });
 
-// Form submission -> mailto + sms
+// Form submission -> mailto
 formEl.addEventListener('submit', (e) => {
     e.preventDefault();
     const name = document.getElementById('form-name').value.trim();
@@ -1451,15 +1450,7 @@ formEl.addEventListener('submit', (e) => {
 
     window.location.href = mailto;
 
-    const smsBody = 'Memorabilia inquiry \u2014 ' + currentItem + ' | From: ' + name + ' (' + contact + ') | Q: ' + question;
-    setTimeout(() => {
-        const proceed = confirm('Email draft opened. Also send a text message notification?');
-        if (proceed) {
-            window.location.href = 'sms:' + SMS_TO + '?body=' + encodeURIComponent(smsBody);
-        }
-        closeModal();
-    }, 600);
-});
+    setTimeout(() => { closeModal(); }, 600);
 
 // Payment modal
 const payModal = document.getElementById('pay-modal');
