@@ -119,6 +119,9 @@ a { color: inherit; }
 .ng-btn { background: rgba(10,10,10,0.72); color: #fff; border: 1px solid rgba(255,255,255,0.35); border-radius: 3px; font-size: 11px; width: 22px; height: 22px; cursor: pointer; font-weight: 700; line-height: 1; padding: 0; }
 .ng-btn.active { background: #f4c430; color: #0a0a0a; border-color: #f4c430; }
 .ng-btn:hover:not(.active) { background: rgba(255,255,255,0.2); }
+
+.detail-gallery-nav { display: flex; justify-content: center; gap: 8px; padding: 10px 0 4px; }
+.detail-gallery-nav .ng-btn { width: 28px; height: 28px; font-size: 13px; }
 </style>
 </head>
 <body>
@@ -169,8 +172,8 @@ a { color: inherit; }
             <div class="sport">Hockey — Quebec Nordiques</div>
             <div class="desc">Complete ticket collection from the Quebec Nordiques playoff or 'Phantom' 1995-1996 season, the team was later relocated to Denver to become the Colorado Avalanche. Includes 30+ home game and playoff tickets. A one-of-a-kind piece of NHL history.</div>
             <div class="details">
-                <span class="tag">1996</span>
-                <span class="tag">Historic NHL</span>
+                <span class="tag">30 Regular Season Tickets</span>
+                <span class="tag">Playoff Tickets</span>
             </div>
             <div class="price-tiers">
                 <div class="asking-price-label">Best Offer — Minimum</div>
@@ -1288,10 +1291,22 @@ let detailCurrentTitle = '';
 function openCardDetail(card) {
     const img = card.querySelector('.card-thumb img');
     var fallbackSrc = img.src;
-    detailImg.src = img.dataset.highres || img.src;
+    const isNordiques = card.dataset.img === 'nordiques';
+    detailImg.src = isNordiques ? _nordiquePhotos[0] : (img.dataset.highres || img.src);
     detailImg.onerror = function() { detailImg.src = fallbackSrc; detailImg.onerror = null; };
     detailImg.alt = card.querySelector('h3').textContent;
     detailCurrentTitle = card.dataset.title || card.querySelector('h3').textContent;
+    // Inject/remove gallery nav for Nordiques
+    const detailImgWrap = document.querySelector('.detail-img-wrap');
+    const existingDetailNav = detailImgWrap.querySelector('.detail-gallery-nav');
+    if (existingDetailNav) existingDetailNav.remove();
+    if (isNordiques) {
+        const dnav = document.createElement('div');
+        dnav.className = 'detail-gallery-nav';
+        dnav.innerHTML = '<button class="ng-btn active" onclick="detailNordiqueNav(0)">1</button><button class="ng-btn" onclick="detailNordiqueNav(1)">2</button><button class="ng-btn" onclick="detailNordiqueNav(2)">3</button>';
+        dnav.addEventListener('click', e => e.stopPropagation());
+        detailImgWrap.appendChild(dnav);
+    }
 
     const info = card.querySelector('.card-info').cloneNode(true);
     detailBody.innerHTML = '';
@@ -1607,7 +1622,12 @@ const _nordiquePhotos = [
 ];
 function nordiqueNav(i) {
   document.getElementById('nordiques-thumb').src = _nordiquePhotos[i];
-  document.querySelectorAll('.ng-btn').forEach((b, j) => b.classList.toggle('active', i === j));
+  document.querySelectorAll('#nordiques-thumb').forEach(() => {});
+  document.querySelectorAll('.nordiques-gallery-nav .ng-btn').forEach((b, j) => b.classList.toggle('active', i === j));
+}
+function detailNordiqueNav(i) {
+  document.getElementById('detail-img').src = _nordiquePhotos[i];
+  document.querySelectorAll('.detail-gallery-nav .ng-btn').forEach((b, j) => b.classList.toggle('active', i === j));
 }
 </script>
 </body>
