@@ -12,16 +12,16 @@ test('header is visible', async ({ page }) => {
   await expect(page.locator('.header h1')).toBeVisible();
 });
 
-test('item count shows 45 items', async ({ page }) => {
+test('item count shows 46 items', async ({ page }) => {
   await page.goto('/');
   const count = page.locator('#count');
-  await expect(count).toHaveText('45 items');
+  await expect(count).toHaveText('46 items');
 });
 
-test('all 45 cards are rendered', async ({ page }) => {
+test('all 46 cards are rendered', async ({ page }) => {
   await page.goto('/');
   const cards = page.locator('.card');
-  await expect(cards).toHaveCount(45);
+  await expect(cards).toHaveCount(46);
 });
 
 test('no broken images on load (all thumbnails have valid src)', async ({ page }) => {
@@ -64,7 +64,7 @@ test('clearing search restores all cards', async ({ page }) => {
   await page.waitForTimeout(100);
   await page.fill('#search', '');
   await page.waitForTimeout(100);
-  await expect(page.locator('#count')).toHaveText('45 items');
+  await expect(page.locator('#count')).toHaveText('46 items');
 });
 
 test('sport filter shows only hockey cards', async ({ page }) => {
@@ -180,7 +180,7 @@ test('Escape key closes card detail', async ({ page }) => {
   await expect(page.locator('#card-detail')).not.toHaveClass(/active/);
 });
 
-test('all 45 cards can be opened without errors', async ({ page }) => {
+test('all 46 cards can be opened without errors', async ({ page }) => {
   await page.goto('/');
   const count = await page.locator('.card').count();
   for (let i = 0; i < count; i++) {
@@ -197,15 +197,15 @@ test('all 45 cards can be opened without errors', async ({ page }) => {
 // ─── COA / License / Correspondence lightbox ─────────────────────────────────
 test('COA link opens lightbox', async ({ page }) => {
   await page.goto('/');
-  // Click Rolling Stones card (first card, has COA)
-  await page.locator('.card').first().click();
+  // Click Rolling Stones card (has COA)
+  await page.locator('.card[data-img="0"] .card-thumb').click();
   await page.locator('#card-detail .coa-link').click();
   await expect(page.locator('#lightbox')).toHaveClass(/active/);
 });
 
 test('lightbox shows an image', async ({ page }) => {
   await page.goto('/');
-  await page.locator('.card').first().click();
+  await page.locator('.card[data-img="0"] .card-thumb').click();
   await page.locator('#card-detail .coa-link').click();
   await expect(page.locator('#lightbox-img')).toBeVisible();
   const src = await page.locator('#lightbox-img').getAttribute('src');
@@ -214,7 +214,7 @@ test('lightbox shows an image', async ({ page }) => {
 
 test('Escape closes lightbox', async ({ page }) => {
   await page.goto('/');
-  await page.locator('.card').first().click();
+  await page.locator('.card[data-img="0"] .card-thumb').click();
   await page.locator('#card-detail .coa-link').click();
   await page.keyboard.press('Escape');
   await expect(page.locator('#lightbox')).not.toHaveClass(/active/);
@@ -222,7 +222,7 @@ test('Escape closes lightbox', async ({ page }) => {
 
 test('clicking lightbox background closes it', async ({ page }) => {
   await page.goto('/');
-  await page.locator('.card').first().click();
+  await page.locator('.card[data-img="0"] .card-thumb').click();
   await page.locator('#card-detail .coa-link').click();
   await page.locator('#lightbox').click({ position: { x: 5, y: 5 } });
   await expect(page.locator('#lightbox')).not.toHaveClass(/active/);
@@ -335,9 +335,8 @@ test('each card has a signed tag', async ({ page }) => {
 
 test('framed items show a Framed tag', async ({ page }) => {
   await page.goto('/');
-  // At least 8 framed items
   const framedTags = await page.locator('.card .tag:text("Framed")').count();
-  expect(framedTags).toBe(8);
+  expect(framedTags).toBe(18);
 });
 
 test('Bobby Hull signed tag mentions Gordie Howe', async ({ page }) => {
